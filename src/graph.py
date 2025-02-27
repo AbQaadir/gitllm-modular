@@ -6,7 +6,7 @@ from .llm import planner_llm, analyzer_llm
 from .helper import create_tuples_from_plans, format_plans
 from .tools import get_file_content
 from .prompt import solver_prompt
-from main import get_repo_url
+from .repo_config import get_repo_url
 
 
 
@@ -45,9 +45,6 @@ def tool_execution(state: State):
     if tool == "ContentExtractorTool":
         # apply regex to get the file path (e.g., file_path="src/Main.java")
         file_path = re.search(r'file_path="(.+?)"', tool_input).group(1)
-        
-        print(f"Fetching content of file: {file_path}")
-        print(f"From repository: {get_repo_url()}")
         
         result = get_file_content.invoke({
             "github_repo_url": get_repo_url(),
