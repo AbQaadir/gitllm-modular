@@ -46,9 +46,11 @@ def tool_execution(state: State):
         # apply regex to get the file path (e.g., file_path="src/Main.java")
         file_path = re.search(r'file_path="(.+?)"', tool_input).group(1)
         
-        result = get_file_content.invoke({
+        file_content = get_file_content.invoke({
             "github_repo_url": get_repo_url(),
             "file_path": file_path})
+        
+        result = f"```{file_content}```"
     elif tool == "LLM":
         result = analyzer_llm.invoke(tool_input)
     else:

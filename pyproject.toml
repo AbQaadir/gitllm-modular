@@ -11,3 +11,10 @@ dependencies = [
     "langgraph>=0.2.74",
     "python-dotenv>=1.0.1",
 ]
+
+[dependency-groups]
+dev = [
+    "chainlit>=2.2.1",
+    "ipykernel>=6.29.5",
+    "jupyter>=1.1.1",
+]

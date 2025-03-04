@@ -76,4 +76,4 @@ async def review_repo(request: RepoRequest):
 # Run the app (for local testing)
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app_fastapi, host="0.0.0.0", port=8000)
+    uvicorn.run(app_fastapi, host="0.0.0.0", port=8080)
