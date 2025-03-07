@@ -1,0 +1,82 @@
+openapi: 3.0.1
+info:
+  title: FastAPI Repo Reviewer
+  description: An API to review code in a Git repository using streaming responses.
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@example.com
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+
+
+paths:
+  /review-repo:
+    post:
+      summary: Review a Git repository and stream the analysis results.
+      description: Accepts a repository URL and streams the file structure and analysis steps in real-time as text/plain content.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RepoRequest'
+      responses:
+        '200':
+          description: Successful response with streaming text/plain content containing repository analysis.
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: Streaming text output of repository analysis, including file structure and review steps.
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+        '400':
+          description: Bad request, e.g., invalid repository URL.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "Invalid repository URL"
+        '500':
+          description: Internal server error during repository analysis.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  detail:
+                    type: string
+                    example: "Error processing repository"
+      security: []
+      tags:
+        - Repository Analysis
+
+components:
+  schemas:
+    RepoRequest:
+      type: object
+      required:
+        - repo_url
+      properties:
+        repo_url:
+          type: string
+          description: The URL of the Git repository to review.
+          example: "https://github.com/user/repo.git"
+      additionalProperties: false
+  
+
+tags:
+  - name: Repository Analysis
+    description: Operations related to analyzing and reviewing Git repositories.

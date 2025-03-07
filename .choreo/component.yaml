@@ -1,0 +1,12 @@
+schemaVersion: 1.1
+
+endpoints:
+  - name: repo_reviewer
+    displayName: Repository Reviewer API
+    service:
+      basePath: /
+      port: 8000  # Adjusted to a common FastAPI port; modify if your app uses a different port
+    type: REST
+    networkVisibilities:
+      - Public
+    schemaFilePath: openapi.yaml
